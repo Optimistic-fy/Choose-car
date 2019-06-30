@@ -1,0 +1,46 @@
+{
+  "code": 0,
+  "data": [
+    {
+      "name":"奥迪",
+      "dataList":[
+        {
+          "maxGuidePrice": 85.63,
+          "minGuidePrice": 34.3,
+          "modelID":"18",
+          "modelName":"奥迪A6L"
+        },
+        {
+          "maxGuidePrice": 91,
+          "minGuidePrice": 91,
+          "modelID":"2733",
+          "modelName":"奥迪RS4"
+        },
+        {
+          "maxGuidePrice": 0,
+          "minGuidePrice": 0,
+          "modelID":"2760",
+          "modelName":"奥迪RSQ3"
+        },
+        {
+          "maxGuidePrice": 0,
+          "minGuidePrice": 0,
+          "modelID":"3334",
+          "modelName":"奥迪Q9"
+        },
+        {
+          "maxGuidePrice":57.81,
+          "minGuidePrice":27.28,
+          "modelID":"692",
+          "modelName":"奥迪A4L"
+        },
+        {
+        "maxGuidePrice":0,
+        "minGuidePrice":0,
+        "modelID":"3910",
+        "modelName":"奥迪80"
+        }
+      ]
+    }
+  ]
+}

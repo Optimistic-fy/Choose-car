@@ -1,0 +1,21 @@
+{
+    "code":0,
+    "data":{
+        "recommendStyle":[
+            {
+                "horsepower":"110",
+                "price":"10.78",
+                "speedBox":"5挡手动",
+                "styleId":"32463",
+                "styleName":"2018款1.5L手动时尚型"
+            },
+            {
+                "horsepower":"190",
+                "price":"40.28",
+                "speedBox":"7挡双离合",
+                "styleId":"31523",
+                "styleName":"2018款30周年年型TFSI进取型"
+            }
+        ]
+    }
+}

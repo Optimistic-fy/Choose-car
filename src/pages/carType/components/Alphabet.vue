@@ -5,7 +5,6 @@
       v-for="item of letters"
       :key="item"
       :ref="item"
-      @click.stop="handleLetterClick"
       @touchstart.prevent="handleTouchStart"
       @touchmove="handleTouchMove"
       @touchend="handleTouchEnd"
@@ -41,12 +40,10 @@ export default {
     this.startY = this.$refs['A'][0].offsetTop
   },
   methods: {
-    handleLetterClick (e) {
-      console.log('click',e.target.innerText)
-      this.$emit('change', e.target.innerText)
-    },
-    handleTouchStart () {
+    handleTouchStart (e) {
       this.touchStatus = true
+      this.$emit('change', e.target.innerText)
+      this.$emit('showLetter')
     },
     handleTouchMove (e) {
       if (this.touchStatus) {
@@ -64,6 +61,7 @@ export default {
     },
     handleTouchEnd () {
       this.touchStatus = false
+      this.$emit('showLetter')
     }
   }
 }

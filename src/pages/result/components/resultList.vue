@@ -113,7 +113,9 @@ export default {
     },
     countBar (e) {
       return function (e) {
+        // e 获取数据的相应属性
         const cData = this.contrastCarData
+        // cData[0][e] 获取对应车的相应属性
         let percentNumber = Number(cData[0][e]) * 100 / (Number(cData[0][e]) + Number(cData[1][e]))
         return Math.round(percentNumber * 100) / 100
       }

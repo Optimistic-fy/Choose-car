@@ -2,11 +2,11 @@ import * as Contants from './mutationType'
 import axios from 'axios'
 
 export default {
-  showloader:({ commit }) => {  
-      commit( Contants.SHOWLOADING )  
-  },  
-  hideloader:({ commit }) => {  
-      commit( Contants.HIDELOADING )  
+  showloader: ({ commit }) => {
+    commit(Contants.SHOWLOADING)
+  },
+  hideloader: ({ commit }) => {
+    commit(Contants.HIDELOADING)
   },
   async getTypeInfo ({commit, state}) {
     // 发送ajax请求
@@ -47,7 +47,7 @@ export default {
       }
     }
   },
-  async getSearchList ({commit, state}) {
+  async getSearchList ({commit, state}, keyword) {
     // 发送ajax请求
     let result = await axios.get('/api/searchModelByKeyword.json')
     result = result.data
@@ -56,9 +56,17 @@ export default {
     if (result.code === 0) {
       const data = result.data
       let searchList = []
+      let resultList = []
       data.forEach((item) => {
-        searchList.push(item.searchModels)
+        resultList.push(item.searchModels)
       })
+      for (let k of resultList) {
+        k.forEach(value => {
+          if (value.modelName.indexOf(keyword) !== -1) {
+            searchList.push(value)
+          }
+        })
+      }
       commit(Contants.GET_SEARCH_LIST, searchList)
     } else {
       console.log('服务器错误！')

@@ -10,8 +10,8 @@
         <div class="search-content" v-show="keyword">
             <div ref="serresult" class="search-result">
               <div style="padding: .2rem">搜索结果如下</div>
-              <ul class="carpice">
-                <li class="pice" v-for="(item,index) in finresult" :key="index">
+              <ul class="carpice" ref="searchContent">
+                <li class="pice" v-for="(item,index) in searchList" :key="index">
                   <div >
                     <img src="../../pages/images/car1.jpg" alt="" />
                     <p class="name">{{item.modelName}}</p>
@@ -35,9 +35,9 @@ export default {
   data () {
     return {
       keyword: '',
-      finresult: '',
       timer: null, // 用于提高效率
-      value1: false
+      value1: false,
+      contentHeight: 0
     }
   },
   methods: {
@@ -60,50 +60,44 @@ export default {
       this.changePushCar(newCar)
       this.keyword = ''
     },
-    _scroll(){
+    _scroll () {
       this.scroll = new BScroll('.search-content', {click: true})
     },
-    _getHeight(){
-      this.$refs.serresult.style.height = 1247 + 'px'
+    _getHeight () {
+      this.$refs.serresult.style.height = this.contentHeight + 'px'
     }
   },
   computed: {
-    ...mapState(['pushCar','searchList']),
+    ...mapState(['pushCar', 'searchList']),
     hasData () {
-      return !this.finresult.length
+      return !this.searchList.length
     }
   },
   watch: {
     keyword () {
-      if (this.timer) {
-        clearTimeout(this.timer)
-      }
       if (!this.keyword) {
         this.$store.state.searchList = []
-        return
+      } else {
+        this.$store.state.keywords = this.keyword
+        this.getSearchList(this.keyword)
       }
-      this.$store.state.keywords = this.keyword
-      this.getSearchList()
-      this.timer = setTimeout(() => {
-        const result = []
-        for (let i in this.searchList) {
-          this.searchList[i].forEach(value => { // 遍历每一项里面的name和spell  有则保存到result中
-            if (value.modelName.indexOf(this.keyword) > -1) {
-              result.push(value)
-            }
-          })
-        }
-        this.finresult = result
-      }, 100)
     }
   },
-  mounted(){
-    if(this.searchList){
-          this.$nextTick(() => {
-            this._scroll()
-            this._getHeight()
-        })
-      }
+  mounted () {
+  },
+  updated () {
+    // 38  为搜索结果所占的高度
+    
+    console.log('Height', this.$refs.searchContent.offsetHeight)
+    let heightStyle = this.$refs.searchContent.offsetHeight + 38
+    console.log('heightStyle', heightStyle)
+    this.contentHeight = heightStyle
+    if (this.searchList) {
+      this.$nextTick(() => {
+        this._getHeight()
+        this._scroll()
+      })
+    }
   }
 }
 </script>
@@ -173,12 +167,13 @@ export default {
         margin-top .2rem
         display flex
         flex-wrap wrap
-        justify-content space-around
+        justify-content left
         overflow hidden
         .pice
           width 32%
           background #fff
           margin-bottom 10px
+          margin-left  4px
           text-align center
           overflow hidden
           p
